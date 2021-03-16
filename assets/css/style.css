@@ -1,0 +1,213 @@
+/**
+** File: style.css
+** Version: 1.0
+** Author: en0ndev
+
+This file is part of Custom Profile Avatar.
+
+Plugin Name: Custom Profile Avatar
+Plugin URI: http://wordpress.org/plugins/
+Description: Change profile avatar to your custom avatar.
+Author: en0ndev
+Version: 1.0
+Author URI: https://github.com/en0ndev
+
+Custom Profile Avatar is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Custom Profile Avatar is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+body {
+    background: #ddd;
+    user-select: none;
+    line-height: 30px;
+}
+
+#author__by {
+    background: #000;
+    padding: 5px 20px;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px 1px #000;
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#author__by a {
+    font-size: 16px;
+    color: #ddd;
+    text-decoration: none;
+}
+
+#author__by .bold {
+    color: #fff;
+    font-weight: 700;
+}
+
+#author__by .bold:hover {
+    padding-bottom: 1px;
+    border-bottom: 2px solid #fff;
+}
+
+.main__area,
+.inner__area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.main__area h1,
+.main__area h2,
+.main__area h3,
+.main__area h4,
+.main__area h5,
+.main__area h6,
+.inner__area,
+.inner__area img,
+input[type="button"],
+#save,
+.remove {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.inner__area {
+    width: 800px;
+    height: 400px;
+    background: #f8f8f8;
+    border-radius: 20px;
+}
+
+.main__area h1,
+.main__area h2,
+.main__area h3,
+.main__area h4,
+.main__area h5,
+.main__area h6 {
+    font-size: 22pt;
+    background: #000;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 15px;
+    margin-top: .7em;
+    margin-bottom: .7em;
+}
+
+.inner__area h2 {
+    width: 95%;
+    text-align: center;
+    padding: 20px 0;
+    background: #000;
+}
+
+.inner__area img {
+    border-radius: 60%;
+    transition: opacity .5s;
+    width: 110px;
+    height: 110px;
+}
+
+.inner__area img:hover {
+    opacity: .9;
+}
+
+.main__area input[type="button"],
+#save {
+    width: 125px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+    background: #000;
+    transition: background-color .5s, color .5s;
+    cursor: pointer;
+    margin-top: .8em;
+    margin-bottom: .8em;
+    font-size: 15px;
+}
+
+.main__area input[type="button"]:hover,
+#save:hover {
+    color: #000;
+    background: #fff;
+}
+
+.hidden {
+    display: none;
+}
+
+.user__avatar {
+    position: relative;
+}
+
+.remove {
+    background: red;
+    border-radius: 60%;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: -5px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    transition: transform .5s;
+}
+
+.remove:hover {
+    transform: translateY(-3px);
+}
+
+.remove:after {
+    content: "";
+    background-image: url(../img/remove.png);
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    box-shadow: none;
+    display: inline-block;
+}
+
+.about>p,
+.about>a {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.about>.big {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#notf {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, .3);
+    padding: 10px 2em;
+    border-radius: 5px;
+    color: #000;
+    background: #fff;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.scs {
+    border-left: 7px solid rgb(5, 131, 60);
+}
+
+.err {
+    border-left: 7px solid rgb(170, 14, 14);
+}
