@@ -26,10 +26,10 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 $template = "<div class='about'><p class='big'>Custom Profile Avatar</p>";
 $template .= "<p>Version: 1.0</p>";
 $template .= "<p>Developer: en0ndev</p>";
-$template .= "<a target='_blank' href='https://www.youtube.com/channel/UC3CSOAThanO-LvYKFwJ24RQ'>My YouTube Channel</a></div>";
+$template .= "<a class='link' target='_blank' href='https://www.youtube.com/channel/UC3CSOAThanO-LvYKFwJ24RQ'>My YouTube Channel</a></div>";
 
-use template\page__template;
+use cpa__template\cpa__page__template;
 
-$page = new page__template;
+$page = new cpa__page__template;
 
-$page->get__template("About", $template, 0);
+$page->cpa__get__template("About", $template, 0);

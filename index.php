@@ -2,10 +2,10 @@
 
 /*
 Plugin Name: Custom Profile Avatar
-Plugin URI: http://wordpress.org/plugins/
+Plugin URI: https://wordpress.org/plugins/custom-profile-avatar
 Description: Change profile avatar to your custom avatar.
-Author: en0ndev
 Version: 1.0
+Author: en0ndev
 Author URI: https://github.com/en0ndev
 
 This file is part of Custom Profile Avatar.
@@ -30,3 +30,4 @@ require_once __DIR__ . '/modules/admin_footer.php';
 require_once __DIR__ . '/modules/template.php';
 require_once __DIR__ . '/modules/chooser.php';
 require_once __DIR__ . '/modules/get_avatar.php';
+require_once __DIR__ . '/modules/get_style.php';

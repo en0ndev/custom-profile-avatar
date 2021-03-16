@@ -8,13 +8,6 @@
 /*
 This file is part of Custom Profile Avatar.
 
-Plugin Name: Custom Profile Avatar
-Plugin URI: http://wordpress.org/plugins/
-Description: Change profile avatar to your custom avatar.
-Author: en0ndev
-Version: 1.0
-Author URI: https://github.com/en0ndev
-
 Custom Profile Avatar is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +23,7 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-function add__menus()
+function cpa__add__menus()
 {
 
     $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
@@ -40,7 +33,7 @@ function add__menus()
         __('Custom Profile Avatar', 'custom_profile_avatar'),
         'manage_options',
         'custom_profile_avatar',
-        'main__settings',
+        'cpa__main__settings',
         $img,
         59
     );
@@ -51,7 +44,7 @@ function add__menus()
         'Settings',
         'manage_options',
         'custom_profile_avatar',
-        'main__settings'
+        'cpa__main__settings'
     );
 
     add_submenu_page(
@@ -60,7 +53,7 @@ function add__menus()
         'About',
         'manage_options',
         'custom_profile_avatar_about',
-        'about__author'
+        'cpa__about__author'
     );
 }
-add_action('admin_menu', 'add__menus');
+add_action('admin_menu', 'cpa__add__menus');

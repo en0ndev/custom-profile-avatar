@@ -1,7 +1,7 @@
 <?php
 
 /**
- ** change_avatar.php
+ ** get_style.php
  ** @version 1.0
  ** @author en0ndev
  */
@@ -23,14 +23,10 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-if (isset($_POST['cpa__save__avatar'])) {
-    try {
-        cpa__change__avatar();
-        echo '<div id="notf" class="scs">' . 'Avatar Successfully Saved!' . '</div>';
-        echo '<script>location.reload();</script>';
-    } catch (Exception $e) {
-        $msg = $e->getMessage();
-        $msg .= '<div id="notf" class="err">' . 'Avatar Not Updated!' . '</div>';
-        echo $msg;
-    }
+function cpa__get__style()
+{
+    $src = plugin_dir_url(__FILE__) . '../assets/css/style.css';
+    wp_register_style('cpa-get-template', $src);
+    wp_enqueue_style('cpa-get-template');
 }
+add_action('admin_enqueue_scripts', 'cpa__get__style');

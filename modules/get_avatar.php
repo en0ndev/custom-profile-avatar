@@ -8,13 +8,6 @@
 /*
 This file is part of Custom Profile Avatar.
 
-Plugin Name: Custom Profile Avatar
-Plugin URI: http://wordpress.org/plugins/
-Description: Change profile avatar to your custom avatar.
-Author: en0ndev
-Version: 1.0
-Author URI: https://github.com/en0ndev
-
 Custom Profile Avatar is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -33,14 +26,14 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 $usr = new WP_User;
 $current_user = $usr->wp_get_current_user();
 
-function get__old($id)
+function cpa__get__old($id)
 {
     $args = get_avatar_data($id);
     $url = $args['url'];
     return $url;
 }
 
-function change__avatar()
+function cpa__change__avatar()
 {
     global $current_user;
     if (!get_user_meta($current_user->id, 'custom_profile_avatar')) {
@@ -50,7 +43,7 @@ function change__avatar()
     }
 }
 
-function get__avatar__new()
+function cpa__get__avatar__new()
 {
     global $current_user;
     if (empty(get_user_meta($current_user->id, 'custom_profile_avatar')[0]) || !get_user_meta($current_user->id, 'custom_profile_avatar')[0]) {
@@ -58,14 +51,14 @@ function get__avatar__new()
     } else {
         $out = '<img class="avatar" src="' . get_user_meta($current_user->id, 'custom_profile_avatar')[0] . '" /><div class="remove"></div>';
     }
-    $out .= '<div id="pull" class="hidden"><img src="' .  get__old($current_user->id) . '" /></div>';
+    $out .= '<div id="pull" class="hidden"><img src="' .  cpa__get__old($current_user->id) . '" /></div>';
     return $out;
 }
 
-function get__value()
+function cpa__get__value()
 {
     global $current_user;
-    if (get_user_meta($current_user->id, 'custom_profileavatar')[0])
+    if (get_user_meta($current_user->id, 'custom_profile_avatar')[0])
         return get_user_meta($current_user->id, 'custom_profile_avatar')[0];
     else
         return 0;

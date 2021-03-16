@@ -5,13 +5,6 @@
 
 This file is part of Custom Profile Avatar.
 
-Plugin Name: Custom Profile Avatar
-Plugin URI: http://wordpress.org/plugins/
-Description: Change profile avatar to your custom avatar.
-Author: en0ndev
-Version: 1.0
-Author URI: https://github.com/en0ndev
-
 Custom Profile Avatar is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -184,11 +177,16 @@ input[type="button"],
 .about>a {
     font-size: 15px;
     font-weight: 500;
+    color: #000;
 }
 
 .about>.big {
     font-size: 20px;
     font-weight: 600;
+}
+
+.about>.link {
+    color: #2271b1;
 }
 
 #notf {

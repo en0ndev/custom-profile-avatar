@@ -23,13 +23,13 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-$template  = "<div class='user__avatar'>" . htmlspecialchars_decode(get__avatar__new()) . "</div>";
-$template .= "<input type='text' class='hidden' name='avatar__val' value='" . get__value() . "' />";
+$template  = "<div class='user__avatar'>" . htmlspecialchars_decode(cpa__get__avatar__new()) . "</div>";
+$template .= "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value() . "' />";
 $template .= "<input id='change' type='button' value='" . esc_html__("Change Avatar") . "' /></div>";
-$template .= "<input id='save' type='submit' name='save__avatar' value='" . esc_html__("Save") . "' />";
+$template .= "<input id='save' type='submit' name='cpa__save__avatar' value='" . esc_html__("Save") . "' />";
 
-use template\page__template;
+use cpa__template\cpa__page__template;
 
-$page = new page__template;
+$page = new cpa__page__template;
 
-$page->get__template("Settings", $template, 1);
+$page->cpa__get__template("Settings", $template, 1);
