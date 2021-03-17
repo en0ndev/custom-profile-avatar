@@ -28,6 +28,5 @@ require_once __DIR__ . '/modules/menu_setup.php';
 require_once __DIR__ . '/modules/admin_menu_join.php';
 require_once __DIR__ . '/modules/admin_footer.php';
 require_once __DIR__ . '/modules/template.php';
-require_once __DIR__ . '/modules/chooser.php';
 require_once __DIR__ . '/modules/get_avatar.php';
-require_once __DIR__ . '/modules/get_style.php';
+require_once __DIR__ . '/modules/get_styles.php';

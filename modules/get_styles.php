@@ -1,7 +1,7 @@
 <?php
 
 /**
- ** get_style.php
+ ** get_styles.php
  ** @version 1.0
  ** @author en0ndev
  */
@@ -23,10 +23,25 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-function cpa__get__style()
+function cpa__get__style_css()
 {
     $src = plugin_dir_url(__FILE__) . '../assets/css/style.css';
     wp_register_style('cpa-get-template', $src);
     wp_enqueue_style('cpa-get-template');
 }
-add_action('admin_enqueue_scripts', 'cpa__get__style');
+
+function cpa__get__style__js()
+{
+    $src = plugin_dir_url(__FILE__) . '../assets/js/modules.js';
+    wp_enqueue_media();
+    wp_register_script('cpa-media-lib-uploader-js', $src, array('jquery'));
+    wp_enqueue_script('cpa-media-lib-uploader-js');
+}
+
+$get_url = $_SERVER['QUERY_STRING'];
+$keys = 'custom_profile_avatar';
+
+if (strpos($get_url, $keys) == true) {
+    add_action('admin_enqueue_scripts', 'cpa__get__style_css');
+    add_action('admin_enqueue_scripts', 'cpa__get__style__js');
+}
