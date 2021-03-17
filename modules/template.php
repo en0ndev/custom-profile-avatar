@@ -21,9 +21,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
-defined('ABSPATH') || exit; // Exit if accessed directly 
+defined('ABSPATH') || exit; // Exit if accessed directly
 
-namespace cpa__template {
     class cpa__page__template
     {
         public static function cpa__get__template($title, $in, $form = false)
@@ -39,4 +38,3 @@ namespace cpa__template {
                 '</div></html>';
         }
     }
-}

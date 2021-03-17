@@ -28,8 +28,6 @@ $template .= "<input type='text' class='hidden' name='avatar__val' value='" . cp
 $template .= "<input id='change' type='button' value='" . esc_html__("Change Avatar") . "' /></div>";
 $template .= "<input id='save' type='submit' name='cpa__save__avatar' value='" . esc_html__("Save") . "' />";
 
-use cpa__template\cpa__page__template;
-
 $page = new cpa__page__template;
 
 $page->cpa__get__template("Settings", $template, 1);
