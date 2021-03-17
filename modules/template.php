@@ -29,9 +29,7 @@ namespace cpa__template {
         public static function cpa__get__template($title, $in, $form = false)
         {
             echo '<!DOCTYPE html>
-            <head>
-            </head>
-            <div class="main__area">' .
+            <html><div class="main__area">' .
                 htmlspecialchars_decode('<h2>') . esc_html__($title, 'custom-profile-avatar') . htmlspecialchars_decode('</h2>') .
                 (($form) ? '<form method="POST" action="" >' : "") .
                 '<div class="inner__area">' .
