@@ -82,8 +82,12 @@ if (!function_exists('get_avatar')) {
             'extra_attr'    => '',
         );
 
-        if (wp_lazy_loading_enabled('img', 'get_avatar')) {
-            $defaults['loading'] = 'lazy';
+        global $wp_version;
+
+        if ($wp_version >= "5.5.0") {
+            if (wp_lazy_loading_enabled('img', 'get_avatar')) {
+                $defaults['loading'] = 'lazy';
+            }
         }
 
         if (empty($args)) {
