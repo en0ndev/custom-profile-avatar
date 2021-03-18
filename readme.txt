@@ -1,7 +1,7 @@
 === Custom Profile Avatar ===
 Contributors: en0ndev
 Tags: custom avatar, custom profile avatar, change avatar, wordpress avatar, avatar, gravatar
-Requires at least: 5.3
+Requires at least: 5.0
 Tested up to: 5.7
 Stable tag: 1.0
 Requires PHP: 7.0
