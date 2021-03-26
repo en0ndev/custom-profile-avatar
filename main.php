@@ -2,7 +2,8 @@
 
 /**
  ** main.php
- ** @version 1.0
+ ** @version 1.0.1
+ ** @since 1.0
  ** @author en0ndev
  */
 /*
@@ -25,9 +26,9 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 $template  = "<div class='user__avatar'>" . htmlspecialchars_decode(cpa__get__avatar__new()) . "</div>";
 $template .= "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value() . "' />";
-$template .= "<input id='change' type='button' value='" . esc_html__("Change Avatar") . "' /></div>";
-$template .= "<input id='save' type='submit' name='cpa__save__avatar' value='" . esc_html__("Save") . "' />";
+$template .= "<input id='change' type='button' value='" . esc_html__('Change Avatar', 'custom-profile-avatar') . "' /></div>";
+$template .= "<input id='save' type='submit' name='cpa__save__avatar' value='" . esc_html__('Save', 'custom-profile-avatar') . "' />";
 
 $page = new cpa__page__template;
 
-$page->cpa__get__template("Settings", $template, 1);
+$page->cpa__get__template(__('Settings', 'custom-profile-avatar'), $template, 1);

@@ -2,7 +2,8 @@
 
 /**
  ** menu_setup.php
- ** @version 1.0
+ ** @version 1.0.1
+ ** @since 1.0
  ** @author en0ndev
  */
 /*
@@ -41,7 +42,7 @@ function cpa__add__menus()
     add_submenu_page(
         'custom_profile_avatar',
         'Custom Profile Avatar',
-        'Settings',
+        esc_html__('Settings', 'custom-profile-avatar'),
         'manage_options',
         'custom_profile_avatar',
         'cpa__main__settings'
@@ -49,8 +50,8 @@ function cpa__add__menus()
 
     add_submenu_page(
         'custom_profile_avatar',
-        'About',
-        'About',
+        esc_html__('About', 'custom-profile-avatar'),
+        esc_html__('About', 'custom-profile-avatar'),
         'manage_options',
         'custom_profile_avatar_about',
         'cpa__about__author'

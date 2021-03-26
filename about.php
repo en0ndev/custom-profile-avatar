@@ -2,7 +2,8 @@
 
 /**
  ** about.php
- ** @version 1.0
+ ** @version 1.0.1
+ ** @since 1.0
  ** @author en0ndev
  */
 /*
@@ -24,10 +25,10 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 defined('ABSPATH') || exit; // Exit if accessed directly 
 
 $template = "<div class='about'><p class='big'>Custom Profile Avatar</p>";
-$template .= "<p>Version: 1.0</p>";
-$template .= "<p>Developer: en0ndev</p>";
-$template .= "<a class='link' target='_blank' href='https://www.youtube.com/channel/UC3CSOAThanO-LvYKFwJ24RQ'>My YouTube Channel</a></div>";
+$template .= "<p>" . esc_html__('Version', 'custom-profile-avatar') . ": 1.0.1</p>";
+$template .= "<p>" . esc_html__('Developer', 'custom-profile-avatar') .  ": en0ndev</p>";
+$template .= "<a class='link' target='_blank' href='https://www.youtube.com/channel/UC3CSOAThanO-LvYKFwJ24RQ'>" . esc_html__('My YouTube Channel', 'custom-profile-avatar') . "</a></div>";
 
 $page = new cpa__page__template;
 
-$page->cpa__get__template("About", $template, 0);
+$page->cpa__get__template(__('About', 'custom-profile-avatar'), $template, 0);

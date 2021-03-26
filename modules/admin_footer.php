@@ -2,7 +2,8 @@
 
 /**
  ** admin_footer.php
- ** @version 1.0
+ ** @version 1.0.1
+ ** @since 1.0
  ** @author en0ndev
  */
 /*
@@ -32,7 +33,7 @@ function cpa__admin__footer($text)
 
     if (strpos($get_url, $keys) == true) {
 
-        $text = '<span id="author__by"><a>Developed by </a><a class="bold" href="https://github.com/en0ndev" target="_blank">en0ndev</a></span>';
+        $text = '<span id="author__by"><a>' . esc_html__('Developed by', 'custom-profile-avatar') . '</a><a class="bold" href="https://github.com/en0ndev" target="_blank"> en0ndev</a></span>';
     }
 
     return $text;
