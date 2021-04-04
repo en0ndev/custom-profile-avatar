@@ -2,7 +2,7 @@
 
 /**
  ** template.php
- ** @version 1.0.1
+ ** @version 1.0.2
  ** @since 1.0
  ** @author en0ndev
  */
@@ -28,14 +28,15 @@ defined('ABSPATH') || exit; // Exit if accessed directly
     {
         public static function cpa__get__template($title, $in, $form = false)
         {
-            echo '<!DOCTYPE html>
-            <html><div class="main__area">' .
+            echo '<div class="main__area">' .
                 htmlspecialchars_decode('<h2>') . esc_html__($title, 'custom-profile-avatar') . htmlspecialchars_decode('</h2>') .
-                (($form) ? '<form method="POST" action="" >' : "") .
+                (($form) ? '<form method="POST" action="">' : "") .
                 '<div class="inner__area">' .
                 $in .
                 '</div>' .
+                (($form) ? '<input id="save" type="submit" name="cpa__save__avatar" value=' . esc_html__('Save', 'custom-profile-avatar') . ' />' : "") .
                 (($form) ? '</form>' : "") .
-                '</div></html>';
+                '<div class="rate__box"><a target="_blank" href="https://wordpress.org/support/plugin/custom-profile-avatar/reviews/#new-post">' . esc_html__("If you like Custom Profile Avatar, please rate.", "custom-profile-avatar") .  '</a></div>' .
+                '</div>';
         }
     }

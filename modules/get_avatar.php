@@ -2,7 +2,7 @@
 
 /**
  ** get_avatar.php
- ** @version 1.0.1
+ ** @version 1.0.2
  ** @since 1.0
  ** @author en0ndev
  */
