@@ -1,37 +1,21 @@
-## Welcome to GitHub Pages
+## Custom Profile Avatar
 
-You can use the [editor on GitHub](https://github.com/en0ndev/custom-profile-avatar/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+![Custom Profile Avatar](https://ps.w.org/custom-profile-avatar/assets/banner-772x250.png)
 
 ### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- Change your avatar with this plugin.
+- Simple to use panel.
+
+![Custom Profile Avatar](https://ps.w.org/custom-profile-avatar/assets/screenshot-1.png)
 
 ```markdown
-Syntax highlighted code block
+# Change your profile avatar!
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+1. Simple to use!
+2. Free
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/en0ndev/custom-profile-avatar/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+`Fork` this project or go to [this plugin page](https://wordpress.org/plugins/custom-profile-avatar/) on WordPress
