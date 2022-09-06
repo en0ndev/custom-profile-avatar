@@ -1,9 +1,9 @@
 <?php
 
 /**
- ** admin_menu_join.php
+ ** change_permissions.php
  ** @version 1.1
- ** @since 1.0
+ ** @since 1.1
  ** @author en0ndev
  */
 /*
@@ -24,17 +24,14 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-function cpa__main__settings()
-{
-    include_once(__DIR__ . '/../main.php');
-    include_once(__DIR__ . '/change_avatar.php');
-}
-function cpa__about__author()
-{
-    include_once(__DIR__ . '/../about.php');
-}
-function cpa__manage__permissions()
-{
-    include_once(__DIR__ . '/../permissions.php');
-    include_once(__DIR__ . '/change_permissions.php');
+if (isset($_POST['cpa__save__avatar'])) {
+    try {
+        cpa__set__check__box();
+        echo '<div id="notf" class="scs">' . 'Permissions Successfully Saved!' . '</div>';
+        echo '<script>location.reload();</script>';
+    } catch (Exception $e) {
+        $msg = $e->getMessage();
+        $msg .= '<div id="notf" class="err">' . 'Permissions Not Updated!' . '</div>';
+        echo $msg;
+    }
 }

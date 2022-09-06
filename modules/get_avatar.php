@@ -2,7 +2,7 @@
 
 /**
  ** get_avatar.php
- ** @version 1.0.2
+ ** @version 1.1
  ** @since 1.0
  ** @author en0ndev
  */
@@ -126,9 +126,15 @@ if (!function_exists('get_avatar')) {
         $user = $id_or_email;
         $usr__id = $user->user_id;
 
-        if (get_user_meta($usr__id, 'custom_profile_avatar')[0]) {
+        //
+        $usr = get_userdata($user);
+        $roles = $usr->roles;
+
+        //echo $roles[0];
+
+        if (get_user_meta($usr__id, 'custom_profile_avatar')[0] && (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on" || $roles[0] == "administrator")) {
             $custom__avatar = get_user_meta($usr__id, 'custom_profile_avatar')[0];
-        } else if (get_user_meta($id_or_email, 'custom_profile_avatar')[0]) {
+        } else if (get_user_meta($id_or_email, 'custom_profile_avatar')[0] && (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on" || $roles[0] == "administrator")) {
             $custom__avatar = get_user_meta($id_or_email, 'custom_profile_avatar')[0];
         } else {
             $url = $args['url'];

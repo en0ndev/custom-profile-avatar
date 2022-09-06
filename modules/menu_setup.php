@@ -2,7 +2,7 @@
 
 /**
  ** menu_setup.php
- ** @version 1.0.2
+ ** @version 1.1
  ** @since 1.0
  ** @author en0ndev
  */
@@ -26,35 +26,54 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 function cpa__add__menus()
 {
-
-    $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
-
-    add_menu_page(
-        __('Avatar Settings', 'custom_profile_avatar'),
-        __('Custom Profile Avatar', 'custom_profile_avatar'),
-        'manage_options',
-        'custom_profile_avatar',
-        'cpa__main__settings',
-        $img,
-        59
-    );
-
-    add_submenu_page(
-        'custom_profile_avatar',
-        'Custom Profile Avatar',
-        esc_html__('Settings', 'custom-profile-avatar'),
-        'manage_options',
-        'custom_profile_avatar',
-        'cpa__main__settings'
-    );
-
-    add_submenu_page(
-        'custom_profile_avatar',
-        esc_html__('About', 'custom-profile-avatar'),
-        esc_html__('About', 'custom-profile-avatar'),
-        'manage_options',
-        'custom_profile_avatar_about',
-        'cpa__about__author'
-    );
+    cpa__add__menu__permission();
 }
 add_action('admin_menu', 'cpa__add__menus');
+
+function cpa__add__menu__permission()
+{
+    $usr = new WP_User;
+    $usr_id = get_current_user_id();
+    $usr = get_userdata($usr_id);
+    $roles = $usr->roles;
+
+    if (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on" || $roles[0] == "administrator") {
+
+        $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
+        add_menu_page(
+            __('Avatar Settings', 'custom_profile_avatar'),
+            __('Custom Profile Avatar', 'custom_profile_avatar'),
+            'edit_posts',
+            'custom_profile_avatar',
+            'cpa__main__settings',
+            $img,
+            59
+        );
+        add_submenu_page(
+            'custom_profile_avatar',
+            'Custom Profile Avatar',
+            esc_html__('Manage Avatar', 'custom-profile-avatar'),
+            'edit_posts',
+            'custom_profile_avatar',
+            'cpa__main__settings'
+        );
+
+        add_submenu_page(
+            'custom_profile_avatar',
+            esc_html__('Manage Permissions', 'custom-profile-avatar'),
+            esc_html__('Manage Permissions', 'custom-profile-avatar'),
+            'manage_options',
+            'custom_profile_avatar_permissions',
+            'cpa__manage__permissions'
+        );
+
+        add_submenu_page(
+            'custom_profile_avatar',
+            esc_html__('About', 'custom-profile-avatar'),
+            esc_html__('About', 'custom-profile-avatar'),
+            'edit_posts',
+            'custom_profile_avatar_about',
+            'cpa__about__author'
+        );
+    }
+}

@@ -2,7 +2,7 @@
 
 /**
  ** main.php
- ** @version 1.0.2
+ ** @version 1.1
  ** @since 1.0
  ** @author en0ndev
  */
@@ -24,10 +24,10 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-$template  = "<div class='user__avatar'>" . htmlspecialchars_decode(cpa__get__avatar__new());
-$template .= "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value() . "' />";
-$template .= "<input id='change' type='button' value='" . esc_html__('Change Avatar', 'custom-profile-avatar') . "' /></div>";
+$template  = "<h4 class='info__card'>Change your avatar</h4><div class='user__avatar'><input id='change' type='button'/><span></span>" . htmlspecialchars_decode(cpa__get__avatar__new());
+$template .= "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value() . "' /></div>";
+//$template .= "<input id='change' type='button' value='" . esc_html__('Change Avatar', 'custom-profile-avatar') . "' /></div>";
 
 $page = new cpa__page__template;
 
-$page->cpa__get__template(__('Settings', 'custom-profile-avatar'), $template, 1);
+$page->cpa__get__template(__('Manage Avatar', 'custom-profile-avatar'), $template, 1);

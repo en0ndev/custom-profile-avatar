@@ -4,7 +4,7 @@
 Plugin Name: Custom Profile Avatar
 Plugin URI: https://wordpress.org/plugins/custom-profile-avatar
 Description: Change profile avatar to your custom avatar.
-Version: 1.0.2
+Version: 1.1
 Author: en0ndev
 Author URI: https://github.com/en0ndev
 Text Domain: custom-profile-avatar
@@ -31,6 +31,7 @@ require_once __DIR__ . '/modules/admin_footer.php';
 require_once __DIR__ . '/modules/template.php';
 require_once __DIR__ . '/modules/get_avatar.php';
 require_once __DIR__ . '/modules/get_styles.php';
+require_once __DIR__ . '/modules/get_permissions.php';
 
 /*function cpa_load_textdomain()
 {
