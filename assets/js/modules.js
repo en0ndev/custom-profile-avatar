@@ -1,6 +1,6 @@
 /**
 ** File: modules.js
-** Version: 1.2
+** Version: 1.2.1
 ** Since: 1.0
 ** Author: en0ndev
 This file is part of Custom Profile Avatar.

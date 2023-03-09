@@ -2,7 +2,7 @@
 
 /**
  ** change_permissions.php
- ** @version 1.2
+ ** @version 1.2.1
  ** @since 1.1
  ** @author en0ndev
  */
