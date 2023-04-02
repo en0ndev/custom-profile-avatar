@@ -2,7 +2,7 @@
 
 /**
  ** admin_menu_join.php
- ** @version 1.2.1
+ ** @version 1.3
  ** @since 1.0
  ** @author en0ndev
  */
@@ -27,7 +27,6 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 function cpa__main__settings()
 {
     include_once(__DIR__ . '/../main.php');
-    include_once(__DIR__ . '/change_avatar.php');
 }
 function cpa__about__author()
 {
@@ -36,5 +35,4 @@ function cpa__about__author()
 function cpa__manage__permissions()
 {
     include_once(__DIR__ . '/../permissions.php');
-    include_once(__DIR__ . '/change_permissions.php');
 }

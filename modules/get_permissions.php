@@ -2,7 +2,7 @@
 
 /**
  ** get_permissions.php
- ** @version 1.2.1
+ ** @version 1.3
  ** @since 1.1
  ** @author en0ndev
  */
@@ -24,20 +24,44 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly
 
-function cpa__set__check__box()
+function cpa__set__permission()
 {
-    $permission__settings = array(
-        "editor" => ($_POST['editor__permission'] == "on") ? $_POST["editor__permission"] : "off",
-        "author" => ($_POST['author__permission'] == "on") ? $_POST["author__permission"] : "off",
-        "contributor" => ($_POST['contributor__permission'] == "on") ? $_POST["contributor__permission"] : "off",
-        "shop_manager" => ($_POST['shopm__permission'] == "on") ? $_POST["shopm__permission"] : "off",
-    );
+    if (isset($_POST['editor__permission']) && isset($_POST['author__permission']) && isset($_POST['contributor__permission']) && isset($_POST['shopm__permission']) && isset($_POST['disable__gravatar']) && isset($_POST['avatar__val'])) {
+        $permission__settings = array(
+            "editor" => ($_POST['editor__permission'] ?? 0 == "on") ? $_POST['editor__permission'] : "off",
+            "author" => ($_POST['author__permission'] ?? 0 == "on") ? $_POST['author__permission'] : "off",
+            "contributor" => ($_POST['contributor__permission'] ?? 0 == "on") ? $_POST['contributor__permission'] : "off",
+            "shop_manager" => ($_POST['shopm__permission'] ?? 0 == "on") ? $_POST['shopm__permission'] : "off",
+        );
 
-    if (get_option("custom_profile_avatar__options__permissions")) {
-        update_option("custom_profile_avatar__options__permissions", $permission__settings);
-    } else {
-        add_option("custom_profile_avatar__options__permissions", $permission__settings);
+        if (get_option("custom_profile_avatar__options__permissions")) {
+            update_option("custom_profile_avatar__options__permissions", $permission__settings);
+        } else {
+            add_option("custom_profile_avatar__options__permissions", $permission__settings);
+        }
+
+        //
+
+        $disable__gravatar = $_POST['disable__gravatar'] ?? 0 == "on" ? $_POST["disable__gravatar"] : "off";
+
+        if (get_option("custom_profile_avatar__options__disable__gravatar")) {
+            update_option("custom_profile_avatar__options__disable__gravatar", $disable__gravatar);
+        } else {
+            add_option("custom_profile_avatar__options__disable__gravatar", $disable__gravatar);
+        }
+
+        //
+
+        if (get_option("custom_profile_avatar__options__default__avatar") !== false) {
+            update_option('custom_profile_avatar__options__default__avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
+        } else {
+            add_option('custom_profile_avatar__options__default__avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
+        }
+
+        wp_send_json_success(['state' => 1]);
+        return;
     }
+    wp_send_json_error(['state' => 0]);
 }
 
 add_action('admin_init', 'cpa__allow__contributor__uploads');
@@ -51,9 +75,19 @@ function cpa__allow__contributor__uploads()
     }
 }
 
-function cpa__get__check__box($getDataNameForBox)
+function cpa__get__check__box__permission($getDataNameForBox)
 {
     $getDataArrOption =  get_option("custom_profile_avatar__options__permissions")[$getDataNameForBox];
+    if ($getDataArrOption == "on") {
+        return "checked='checked'";
+    }
+}
+
+//
+
+function cpa__get__check__box__disable__gravatar()
+{
+    $getDataArrOption =  get_option("custom_profile_avatar__options__disable__gravatar");
     if ($getDataArrOption == "on") {
         return "checked='checked'";
     }

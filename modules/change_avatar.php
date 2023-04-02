@@ -2,6 +2,7 @@
 
 /**
  ** change_avatar.php
+ ** @deprecated 1.3
  ** @version 1.2.1
  ** @since 1.0
  ** @author en0ndev
@@ -26,7 +27,7 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 if (isset($_POST['cpa__save__avatar'])) {
     try {
-        cpa__change__avatar();
+        //cpa__change__avatar();
         echo '<div id="notf" class="scs">' . 'Avatar Successfully Saved!' . '</div>';
         echo '<script>location.reload();</script>';
     } catch (Exception $e) {

@@ -2,6 +2,7 @@
 
 /**
  ** change_permissions.php
+ ** @deprecated 1.3
  ** @version 1.2.1
  ** @since 1.1
  ** @author en0ndev
@@ -26,7 +27,8 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 if (isset($_POST['cpa__save__avatar'])) {
     try {
-        cpa__set__check__box();
+        //cpa__set__check__box();
+        //cpa__change__default__avatar();
         echo '<div id="notf" class="scs">' . 'Permissions Successfully Saved!' . '</div>';
         echo '<script>location.reload();</script>';
     } catch (Exception $e) {

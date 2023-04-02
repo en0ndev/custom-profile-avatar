@@ -2,7 +2,7 @@
 
 /**
  ** get_styles.php
- ** @version 1.2.1
+ ** @version 1.3
  ** @since 1.0
  ** @author en0ndev
  */
@@ -39,10 +39,26 @@ function cpa__get__style__js()
     wp_enqueue_script('cpa-media-lib-uploader-js');
 }
 
+//
+
+function cpa__get__ajax__data()
+{
+    wp_enqueue_script('cpa-ajax-script', plugin_dir_url(__DIR__) . 'assets/js/save_settings.js', array('jquery'));
+    wp_localize_script('cpa-ajax-script', 'cpa__save__settings', array('ajax_url' => admin_url('admin-ajax.php')));
+
+    wp_enqueue_script('cpa-ajax-script', plugin_dir_url(__DIR__) . 'assets/js/save_settings.js', array('jquery'));
+    wp_localize_script('cpa-ajax-script', 'cpa__permission__settings', array('ajax_url' => admin_url('admin-ajax.php')));
+}
+add_action('wp_ajax_cpa__settings__change__avatar', "cpa__change__avatar");
+add_action('wp_ajax_cpa__settings__change__permission', "cpa__set__permission");
+
+//
+
 $get_url = $_SERVER['QUERY_STRING'];
 $keys = 'custom_profile_avatar';
 
 if (strpos($get_url, $keys) == true) {
     add_action('admin_enqueue_scripts', 'cpa__get__style_css');
     add_action('admin_enqueue_scripts', 'cpa__get__style__js');
+    add_action('admin_enqueue_scripts', 'cpa__get__ajax__data');
 }

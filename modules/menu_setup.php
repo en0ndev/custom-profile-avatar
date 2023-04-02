@@ -2,7 +2,7 @@
 
 /**
  ** menu_setup.php
- ** @version 1.2.1
+ ** @version 1.3
  ** @since 1.0
  ** @author en0ndev
  */
@@ -37,7 +37,7 @@ function cpa__add__menu__permission()
     $usr = get_userdata($usr_id);
     $roles = $usr->roles;
 
-    if (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on" || $roles[0] == "administrator") {
+    if ((isset(get_option("custom_profile_avatar__options__permissions")[$roles[0]]) && (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on")) || $roles[0] == "administrator") {
 
         $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
         add_menu_page(
