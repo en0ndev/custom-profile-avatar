@@ -2,7 +2,7 @@
 
 /**
  ** get_styles.php
- ** @version 1.3
+ ** @version 1.3.1
  ** @since 1.0
  ** @author en0ndev
  */

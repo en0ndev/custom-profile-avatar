@@ -2,7 +2,7 @@
 
 /**
  ** get_permissions.php
- ** @version 1.3
+ ** @version 1.3.1
  ** @since 1.1
  ** @author en0ndev
  */
@@ -68,16 +68,18 @@ add_action('admin_init', 'cpa__allow__contributor__uploads');
 function cpa__allow__contributor__uploads()
 {
     $contributor = get_role('contributor');
-    if (get_option("custom_profile_avatar__options__permissions")["contributor"] == "on" && !$contributor->has_cap("upload_files")) {
-        $contributor->add_cap('upload_files');
-    } else if (get_option("custom_profile_avatar__options__permissions")["contributor"] == "off" && $contributor->has_cap("upload_files")) {
-        $contributor->remove_cap('upload_files');
-    }
+    if (isset(get_option("custom_profile_avatar__options__permissions")["contributor"])) :
+        if (get_option("custom_profile_avatar__options__permissions")["contributor"] == "on" && !$contributor->has_cap("upload_files")) {
+            $contributor->add_cap('upload_files');
+        } else if (get_option("custom_profile_avatar__options__permissions")["contributor"] == "off" && $contributor->has_cap("upload_files")) {
+            $contributor->remove_cap('upload_files');
+        }
+    endif;
 }
 
 function cpa__get__check__box__permission($getDataNameForBox)
 {
-    $getDataArrOption =  get_option("custom_profile_avatar__options__permissions")[$getDataNameForBox];
+    $getDataArrOption =  get_option("custom_profile_avatar__options__permissions")[$getDataNameForBox] ?? 0;
     if ($getDataArrOption == "on") {
         return "checked='checked'";
     }
@@ -87,7 +89,7 @@ function cpa__get__check__box__permission($getDataNameForBox)
 
 function cpa__get__check__box__disable__gravatar()
 {
-    $getDataArrOption =  get_option("custom_profile_avatar__options__disable__gravatar");
+    $getDataArrOption =  get_option("custom_profile_avatar__options__disable__gravatar") ?? 0;
     if ($getDataArrOption == "on") {
         return "checked='checked'";
     }

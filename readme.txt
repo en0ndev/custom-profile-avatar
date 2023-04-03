@@ -1,22 +1,27 @@
 === Custom Profile Avatar ===
 Contributors: en0ndev
-Tags: custom avatar, custom profile avatar, change avatar, wordpress avatar, avatar, gravatar
+Tags: custom avatar, custom profile avatar, change avatar, wordpress avatar, avatar, gravatar, disable gravatar, default avatar, wp avatar, choose avatar
 Requires at least: 5.0
 Tested up to: 6.2
-Stable tag: 1.3
+Stable tag: 1.3.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 == Description ==
 
-You can easily change your avatar with this plugin.
+You can easily change your WordPress profile avatar with Custom Profile Avatar. Also you can disable Gravatar with this plugin.
 
 == Screenshots ==
 
-1. Simple to use panel
+1. Change your profile avatar with simple to use panel.
+2. You can manage the permissions. Select who can change its avatar.
+3. You can disable Gravatar, and choose the default avatar even for non-users.
 
 == Changelog ==
+
+= 1.3.1 =
+* Fixed bugs when the plugin was activated.
 
 = 1.3 =
 * Compatibility extended up to PHP 8.

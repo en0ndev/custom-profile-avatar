@@ -2,7 +2,7 @@
 
 /**
  ** get_avatar.php
- ** @version 1.3
+ ** @version 1.3.1
  ** @since 1.0
  ** @author en0ndev
  */
@@ -82,13 +82,13 @@ function cpa__get__avatar__new($getType)
 function cpa__get__value($getType)
 {
     global $current_user;
-    if (get_user_meta($current_user->id, 'custom_profile_avatar')[0] && $getType == "custom__avatar")
+    if (isset(get_user_meta($current_user->id, 'custom_profile_avatar')[0]) && get_user_meta($current_user->id, 'custom_profile_avatar')[0] && $getType == "custom__avatar")
         return get_user_meta($current_user->id, 'custom_profile_avatar')[0];
-    elseif ($getType == "default__avatar") {
-        $get__default__avatar = get_option('custom_profile_avatar__options__default__avatar') !== false ? get_option('custom_profile_avatar__options__default__avatar') : plugins_url() . "/custom-profile-avatar/assets/img/default-non-user-avatar.jpg";
+    elseif (!empty(get_option('custom_profile_avatar__options__default__avatar')) && $getType == "default__avatar") {
+        $get__default__avatar = get_option('custom_profile_avatar__options__default__avatar');
         return $get__default__avatar;
     } else
-        return 0;
+        return "";
 }
 
 function compare__comment__id($a, $b)
@@ -204,11 +204,13 @@ if (!function_exists('get_avatar')) {
             $get__comments = get_comments();
         }
 
+
         $get__parent__id__arr = array();
         foreach ($get__comments as $get__comment) {
             array_push($get__parent__id__arr, $get__comment->comment_parent);
         }
         $get__parent__id__arr__cln = $get__parent__id__arr;
+
 
         $indx__getting__comments = 0;
         foreach ($get__comments as $get__comment) {
@@ -242,7 +244,9 @@ if (!function_exists('get_avatar')) {
 
                     if ($get__parent__id__arr__cln__cnt > 1) {
 
+
                         $gttng__pos = $get__parent__id__arr__cln__cnt - $get__parent__id__arr__cnt + 1;
+
 
                         $comments__author__id__array = array_merge(array_slice($comments__author__id__array, 0, $pos__for__arr + $gttng__pos), array($comment__author__id), array_slice($comments__author__id__array, $pos__for__arr + $gttng__pos));
 
@@ -261,6 +265,7 @@ if (!function_exists('get_avatar')) {
                     $comments__id__array = array_merge(array_slice($comments__id__array, 0, $pos__for__arr + 1), array($comment__id), array_slice($comments__id__array, $pos__for__arr + 1));
                 }
             }
+
 
             $indx__getting__comments++;
         }
@@ -282,6 +287,7 @@ if (!function_exists('get_avatar')) {
             $spcfc__admn__pg = 1;
         }
 
+
         $cpa__WPScreen = WP_Screen::get();
 
         $option = $cpa__WPScreen->get_option('per_page', 'option');
@@ -298,6 +304,7 @@ if (!function_exists('get_avatar')) {
         $comment_status = isset($_REQUEST['comment_status']) ? $_REQUEST['comment_status'] : 'all';
         $per_page = apply_filters('comments_per_page', $per_page, $comment_status);
 
+
         if (is_admin() && isset($_GET["paged"]) && ($_GET["paged"] > 1) && get_current_screen()->id === "edit-comments" && ($_GET["paged"] - 1) * $per_page > $get__commenter__indx) {
             $chng__pos = $_GET["paged"];
             $get__commenter__indx = 0;
@@ -307,10 +314,13 @@ if (!function_exists('get_avatar')) {
             }
         }
 
+
         if (isset(get_user_meta($usr__id, 'custom_profile_avatar')[0]) && (get_user_meta($usr__id, 'custom_profile_avatar')[0]) && (isset($roles[0]) && ((get_option("custom_profile_avatar__options__permissions")[$roles[0]] ?? 0) == "on" || $roles[0] == "administrator"))) {
             $custom__avatar = get_user_meta($usr__id, 'custom_profile_avatar')[0];
+            //echo 1 . " " . $get__commenter__indx;
         } else if (isset(get_user_meta($id_or_email, 'custom_profile_avatar')[0]) && (get_user_meta($id_or_email, 'custom_profile_avatar')[0]) && (isset($roles[0]) && ((get_option("custom_profile_avatar__options__permissions")[$roles[0]] ?? 0) == "on" || $roles[0] == "administrator"))) {
             $custom__avatar = get_user_meta($id_or_email, 'custom_profile_avatar')[0];
+            //echo 2 . " " . $get__commenter__indx;
         } else if (!get_comment_ID()) {
             if (get_option("custom_profile_avatar__options__disable__gravatar") == "on") {
                 if (strlen(get_option("custom_profile_avatar__options__default__avatar")) > 0) {
@@ -327,11 +337,14 @@ if (!function_exists('get_avatar')) {
             }
         } else if (isset(get_user_meta($comments__author__id__array[$get__commenter__indx], 'custom_profile_avatar')[0]) && (get_user_meta($comments__author__id__array[$get__commenter__indx], 'custom_profile_avatar')[0]) && (isset($commenter__role[0]) && ((get_option("custom_profile_avatar__options__permissions")[$commenter__role[0]] ?? 0) == "on" || $commenter__role[0] == "administrator")) && (is_single() || is_page() || is_singular() || $spcfc__admn__pg == 1)) {
 
+
             if (get_comment_ID() > 0 && $get__commenter__indx < 0) {
                 $get__commenter__indx++;
             }
 
+
             $custom__avatar = get_user_meta($comments__author__id__array[$get__commenter__indx], 'custom_profile_avatar')[0];
+
 
             if (is_single() || is_page() || is_singular() || get_current_screen()->id === "dashboard") {
                 if (get_comment_ID() > 0) {
