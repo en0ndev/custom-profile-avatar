@@ -36,6 +36,44 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
   --cpa-radius: 18px;
 }
 
+@keyframes cpa-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cpa-soft-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cpa-avatar-glow {
+  0% {
+    box-shadow: 0 10px 25px rgba(20, 52, 71, 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 30px rgba(0, 96, 193, 0.26);
+  }
+  100% {
+    box-shadow: 0 10px 25px rgba(20, 52, 71, 0.2);
+  }
+}
+
 body {
   background:
     radial-gradient(
@@ -84,6 +122,7 @@ body {
 .main__area {
   padding: 28px 16px;
   position: relative;
+  animation: cpa-fade-up 0.45s ease-out both;
 }
 
 .main__area::before {
@@ -113,6 +152,7 @@ body {
   backdrop-filter: blur(4px);
   position: relative;
   overflow: hidden;
+  animation: cpa-fade-up 0.55s ease-out 0.08s both;
 }
 
 .inner__area::after {
@@ -149,6 +189,7 @@ body {
   border-radius: 999px;
   margin: 0;
   box-shadow: 0 12px 28px rgba(20, 52, 71, 0.24);
+  animation: cpa-soft-pop 0.5s ease-out 0.05s both;
 }
 
 .main__area .info__card {
@@ -183,6 +224,9 @@ body {
   border: 4px solid #fff;
   box-shadow: 0 10px 25px rgba(20, 52, 71, 0.2);
   background: #fff;
+  animation:
+    cpa-soft-pop 0.45s ease-out 0.12s both,
+    cpa-avatar-glow 2.8s ease-in-out 0.9s infinite;
 }
 
 .inner__area img:hover {
@@ -335,8 +379,11 @@ body {
   font-weight: 600;
   font-size: 14px;
   display: none;
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.25s ease;
   z-index: 10000;
+  animation: cpa-fade-up 0.3s ease-out both;
 }
 
 .scs {
@@ -469,6 +516,7 @@ body {
   border-radius: 50%;
   margin: 0;
   border: 0;
+  z-index: 8;
 }
 
 #change:hover {
@@ -487,6 +535,7 @@ body {
   opacity: 0;
   transition: opacity 0.2s ease;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+  z-index: 9;
 }
 
 #change:hover + span {
