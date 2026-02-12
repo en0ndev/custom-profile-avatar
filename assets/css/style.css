@@ -28,8 +28,8 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
   --cpa-card: #fffdf9;
   --cpa-ink: #1f252e;
   --cpa-muted: #6f7680;
-  --cpa-brand: #1b9a59;
-  --cpa-brand-strong: #0d7a66;
+  --cpa-brand: #0060c1;
+  --cpa-brand-strong: #004487;
   --cpa-danger: #cc2f1d;
   --cpa-success: #157a3a;
   --cpa-shadow: 0 18px 40px rgba(31, 37, 46, 0.12);
@@ -38,7 +38,11 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 
 body {
   background:
-    radial-gradient(circle at top right, #ffeecf 0%, rgba(255, 238, 207, 0) 42%),
+    radial-gradient(
+      circle at top right,
+      #ffeecf 0%,
+      rgba(255, 238, 207, 0) 42%
+    ),
     linear-gradient(160deg, var(--cpa-bg-1), var(--cpa-bg-2));
   user-select: none;
   line-height: normal !important;
@@ -88,7 +92,11 @@ body {
   inset: 18px 8px auto;
   height: 210px;
   border-radius: 22px;
-  background: linear-gradient(105deg, rgba(33, 98, 124, 0.2), rgba(13, 122, 102, 0.08));
+  background: linear-gradient(
+    105deg,
+    rgba(0, 96, 193, 0.2),
+    rgba(0, 68, 135, 0.08)
+  );
   filter: blur(1px);
   pointer-events: none;
 }
@@ -115,7 +123,11 @@ body {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(20, 52, 71, 0.16), rgba(20, 52, 71, 0));
+  background: radial-gradient(
+    circle,
+    rgba(20, 52, 71, 0.16),
+    rgba(20, 52, 71, 0)
+  );
   pointer-events: none;
 }
 
@@ -127,7 +139,11 @@ body {
 .main__area h6 {
   font-size: clamp(22px, 3vw, 30px);
   letter-spacing: 0.01em;
-  background: linear-gradient(125deg, #143447, #21627c);
+  background: linear-gradient(
+    125deg,
+    var(--cpa-brand),
+    var(--cpa-brand-strong)
+  );
   color: #fff;
   padding: 10px 26px;
   border-radius: 999px;
@@ -181,8 +197,15 @@ body {
   border: 0;
   border-radius: 12px;
   color: #fff;
-  background: linear-gradient(130deg, var(--cpa-brand), var(--cpa-brand-strong));
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  background: linear-gradient(
+    130deg,
+    var(--cpa-brand),
+    var(--cpa-brand-strong)
+  );
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
   cursor: pointer;
   margin: 16px 0;
   font-size: 14px;
@@ -221,7 +244,11 @@ body {
   margin: 0 auto;
   padding: 14px;
   border-radius: 20px;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.94), rgba(247, 253, 251, 0.94));
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.94),
+    rgba(247, 253, 251, 0.94)
+  );
   border: 1px solid rgba(13, 122, 102, 0.12);
 }
 
