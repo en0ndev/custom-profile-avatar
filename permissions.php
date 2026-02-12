@@ -2,7 +2,7 @@
 
 /**
  ** permissions.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.1
  ** @author en0ndev
  */
@@ -33,7 +33,7 @@ $template .= "<label class='permission__cont'><input type='checkbox' name='shopm
 $template .= "<h4 class='info__card'>Disable Gravatar</h4>";
 $template .= "<div class='checkbox__area__single'><label class='disable__gravatar'><input type='checkbox' name='disable__gravatar'" . cpa__get__check__box__disable__gravatar() . "/><span></span></label></div>";
 $template .= "<h4 class='info__card collapse__disable__avatar'" . (get_option("custom_profile_avatar__options__disable__gravatar") !== "on" ? "style='display:none'" : "") . ">Default avatar</h4>";
-$template .= "<div id='user__avatar' class='user__avatar collapse__disable__avatar'" . (get_option("custom_profile_avatar__options__disable__gravatar") !== "on" ? "style='display:none'" : "") . "><input id='change' type='button'/><span></span>" . htmlspecialchars_decode(cpa__get__avatar__new("default__avatar")) . "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value("default__avatar")  . "' /></div>";
+$template .= "<div id='user__avatar' class='user__avatar collapse__disable__avatar'" . (get_option("custom_profile_avatar__options__disable__gravatar") !== "on" ? "style='display:none'" : "") . "><input id='change' type='button'/><span></span>" . htmlspecialchars_decode(cpa__get__avatar__new("default__avatar")) . "<input type='text' class='hidden' name='avatar__val' value='" . esc_attr(cpa__get__value("default__avatar"))  . "' /></div>";
 $template .= "</div>";
 
 $page = new cpa__page__template;

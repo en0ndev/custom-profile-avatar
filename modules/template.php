@@ -2,7 +2,7 @@
 
 /**
  ** template.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -28,15 +28,17 @@ class cpa__page__template
 {
     public static function cpa__get__template($title, $in, $form = false)
     {
-        echo '<div class="main__area">' .
-            htmlspecialchars_decode('<h2>') . esc_html__($title, 'custom-profile-avatar') . htmlspecialchars_decode('</h2>') .
-            (($form) ? '<form method="POST" action="">' : "") .
-            '<div class="inner__area">' .
-            $in .
-            '</div>' .
-            (($form) ? '<input id="save" type="submit" name="cpa__save__avatar" value=' . esc_html__('Save', 'custom-profile-avatar') . ' />' : "") .
-            (($form) ? '</form>' : "") .
-            '<div class="rate__box"><a target="_blank" href="https://wordpress.org/support/plugin/custom-profile-avatar/reviews/#new-post">' . esc_html__("If you like Custom Profile Avatar, please rate it.", "custom-profile-avatar") .  '</a></div>' .
-            '</div>';
+        $output = '<div class="main__area">';
+        $output .= '<h2>' . esc_html($title) . '</h2>';
+        $output .= $form ? '<form method="POST" action="">' : '';
+        $output .= '<div class="inner__area">' . $in . '</div>';
+        $output .= $form
+            ? '<input id="save" type="submit" name="cpa__save__avatar" value="' . esc_attr__('Save', 'custom-profile-avatar') . '" />'
+            : '';
+        $output .= $form ? '</form>' : '';
+        $output .= '<div class="rate__box"><a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/support/plugin/custom-profile-avatar/reviews/#new-post">' . esc_html__('If you like Custom Profile Avatar, please rate it.', 'custom-profile-avatar') . '</a></div>';
+        $output .= '</div>';
+
+        echo $output;
     }
 }

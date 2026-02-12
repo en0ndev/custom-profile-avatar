@@ -2,7 +2,7 @@
 
 /**
  ** menu_setup.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -32,12 +32,13 @@ add_action('admin_menu', 'cpa__add__menus');
 
 function cpa__add__menu__permission()
 {
-    $usr = new WP_User;
     $usr_id = get_current_user_id();
     $usr = get_userdata($usr_id);
-    $roles = $usr->roles;
+    if (!$usr) {
+        return;
+    }
 
-    if ((isset(get_option("custom_profile_avatar__options__permissions")[$roles[0]]) && (get_option("custom_profile_avatar__options__permissions")[$roles[0]] == "on")) || $roles[0] == "administrator") {
+    if (cpa__user__can__manage__avatar($usr_id)) {
 
         $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
         add_menu_page(

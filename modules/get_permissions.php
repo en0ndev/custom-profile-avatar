@@ -2,7 +2,7 @@
 
 /**
  ** get_permissions.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.1
  ** @author en0ndev
  */
@@ -26,48 +26,39 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 function cpa__set__permission()
 {
-    if (isset($_POST['editor__permission']) && isset($_POST['author__permission']) && isset($_POST['contributor__permission']) && isset($_POST['shopm__permission']) && isset($_POST['disable__gravatar']) && isset($_POST['avatar__val'])) {
-        $permission__settings = array(
-            "editor" => ($_POST['editor__permission'] ?? 0 == "on") ? $_POST['editor__permission'] : "off",
-            "author" => ($_POST['author__permission'] ?? 0 == "on") ? $_POST['author__permission'] : "off",
-            "contributor" => ($_POST['contributor__permission'] ?? 0 == "on") ? $_POST['contributor__permission'] : "off",
-            "shop_manager" => ($_POST['shopm__permission'] ?? 0 == "on") ? $_POST['shopm__permission'] : "off",
-        );
-
-        if (get_option("custom_profile_avatar__options__permissions")) {
-            update_option("custom_profile_avatar__options__permissions", $permission__settings);
-        } else {
-            add_option("custom_profile_avatar__options__permissions", $permission__settings);
-        }
-
-        //
-
-        $disable__gravatar = $_POST['disable__gravatar'] ?? 0 == "on" ? $_POST["disable__gravatar"] : "off";
-
-        if (get_option("custom_profile_avatar__options__disable__gravatar")) {
-            update_option("custom_profile_avatar__options__disable__gravatar", $disable__gravatar);
-        } else {
-            add_option("custom_profile_avatar__options__disable__gravatar", $disable__gravatar);
-        }
-
-        //
-
-        if (get_option("custom_profile_avatar__options__default__avatar") !== false) {
-            update_option('custom_profile_avatar__options__default__avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
-        } else {
-            add_option('custom_profile_avatar__options__default__avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
-        }
-
-        wp_send_json_success(['state' => 1]);
-        return;
+    if (!check_ajax_referer('cpa_change_permission_nonce', 'security', false)) {
+        wp_send_json_error(array('state' => 0, 'message' => 'invalid_nonce'), 403);
     }
-    wp_send_json_error(['state' => 0]);
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(array('state' => 0, 'message' => 'unauthorized'), 403);
+    }
+
+    $permission__settings = array(
+        'editor' => (isset($_POST['editor__permission']) && wp_unslash($_POST['editor__permission']) === 'on') ? 'on' : 'off',
+        'author' => (isset($_POST['author__permission']) && wp_unslash($_POST['author__permission']) === 'on') ? 'on' : 'off',
+        'contributor' => (isset($_POST['contributor__permission']) && wp_unslash($_POST['contributor__permission']) === 'on') ? 'on' : 'off',
+        'shop_manager' => (isset($_POST['shopm__permission']) && wp_unslash($_POST['shopm__permission']) === 'on') ? 'on' : 'off',
+    );
+
+    $disable__gravatar = (isset($_POST['disable__gravatar']) && wp_unslash($_POST['disable__gravatar']) === 'on') ? 'on' : 'off';
+    $default_avatar = isset($_POST['avatar__val']) ? esc_url_raw(wp_unslash($_POST['avatar__val'])) : '';
+
+    update_option('custom_profile_avatar__options__permissions', $permission__settings);
+    update_option('custom_profile_avatar__options__disable__gravatar', $disable__gravatar);
+    update_option('custom_profile_avatar__options__default__avatar', $default_avatar);
+
+    wp_send_json_success(array('state' => 1));
 }
 
 add_action('admin_init', 'cpa__allow__contributor__uploads');
 function cpa__allow__contributor__uploads()
 {
     $contributor = get_role('contributor');
+    if (!$contributor) {
+        return;
+    }
+
     if (isset(get_option("custom_profile_avatar__options__permissions")["contributor"])) :
         if (get_option("custom_profile_avatar__options__permissions")["contributor"] == "on" && !$contributor->has_cap("upload_files")) {
             $contributor->add_cap('upload_files');
@@ -81,7 +72,7 @@ function cpa__get__check__box__permission($getDataNameForBox)
 {
     $getDataArrOption =  get_option("custom_profile_avatar__options__permissions")[$getDataNameForBox] ?? 0;
     if ($getDataArrOption == "on") {
-        return "checked='checked'";
+        return " checked='checked'";
     }
 }
 
@@ -91,6 +82,6 @@ function cpa__get__check__box__disable__gravatar()
 {
     $getDataArrOption =  get_option("custom_profile_avatar__options__disable__gravatar") ?? 0;
     if ($getDataArrOption == "on") {
-        return "checked='checked'";
+        return " checked='checked'";
     }
 }

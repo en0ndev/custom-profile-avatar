@@ -2,7 +2,7 @@
 
 /**
  ** main.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -25,7 +25,7 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 defined('ABSPATH') || exit; // Exit if accessed directly
 
 $template  = "<div id='cpa__change__avatar' class='change__avatar'><h4 class='info__card'>Change your avatar</h4><div id='user__avatar' class='user__avatar'><input id='change' type='button'/><span></span>" . htmlspecialchars_decode(cpa__get__avatar__new("custom__avatar"));
-$template .= "<input type='text' class='hidden' name='avatar__val' value='" . cpa__get__value("custom__avatar") . "' /></div></div>";
+$template .= "<input type='text' class='hidden' name='avatar__val' value='" . esc_attr(cpa__get__value("custom__avatar")) . "' /></div></div>";
 
 $page = new cpa__page__template;
 

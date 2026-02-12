@@ -1,6 +1,6 @@
 /**
 ** File: save_settings.js
-** Version: 1.3.1
+** Version: 1.4
 ** Since: 1.3
 ** Author: en0ndev
 This file is part of Custom Profile Avatar.
@@ -20,104 +20,136 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 jQuery(document).ready(function ($) {
-  var cpa__get__oldavatar = $("#user__avatar > img").attr("src");
-  var avatar__disabled = "";
+  var oldAvatar = $("#user__avatar > img").attr("src");
+  var avatarDisabled = "";
 
-  function getImgAfterUpdate(cpa__get__newavatar, avatar__disabled) {
-    for (let getInd = 0; getInd < $("img").length; getInd++) {
-      if (avatar__disabled == "" && $("img:eq("+getInd+")[class*=avatar][class*=photo]").length > 0 && cpa__get__oldavatar != cpa__get__newavatar && $("img")[getInd]["id"] != "old__avatar") {
-        $("img:eq("+getInd+")").attr("src", cpa__get__newavatar);
-      }
-      else if (avatar__disabled != "" && ($("img")[getInd]["currentSrc"] == cpa__get__oldavatar || $("img")[getInd]["currentSrc"] == $("#old__avatar").attr("src") || $("img:eq("+getInd+")[src*='gravatar.com']").length > 0) && $("img")[getInd]["id"] != "old__avatar" && $("img:eq("+getInd+")").parent().attr("id") != "user__avatar") {
-        avatar__disabled == "1" ? $("img:eq("+getInd+")").attr("src", $("#user__avatar > img").attr("src")) : $("img:eq("+getInd+")").attr("src", $("#old__avatar").attr("src"));
-      }
+  function showNotice(type, message) {
+    if ($("#notf").length > 0) {
+      return;
     }
-    cpa__get__oldavatar = $("#user__avatar > img").attr("src");
+
+    $(".main__area").after('<div id="notf" class="' + type + '">' + message + "</div>");
+    $("#notf")
+      .fadeIn(300)
+      .css("transform", "translateY(12.5px)")
+      .delay(800)
+      .fadeOut(600);
+
+    setTimeout(function () {
+      $("#notf").remove();
+    }, 1800);
   }
 
-  $(document).submit("[name='cpa__save__avatar']", function (e) {
+  function updateVisibleAvatars(newAvatar, disableState) {
+    var oldDefaultAvatar = $("#old__avatar").attr("src");
+
+    $("img").each(function () {
+      var $img = $(this);
+      var imgId = $img.attr("id");
+      var parentId = $img.parent().attr("id");
+      var currentSrc = this.currentSrc || $img.attr("src");
+
+      if (imgId === "old__avatar" || parentId === "user__avatar") {
+        return;
+      }
+
+      if (
+        disableState === "" &&
+        $img.is("[class*=avatar][class*=photo]") &&
+        oldAvatar !== newAvatar
+      ) {
+        $img.attr("src", newAvatar);
+        return;
+      }
+
+      var isProfileImg =
+        currentSrc === oldAvatar ||
+        currentSrc === oldDefaultAvatar ||
+        $img.is("[src*='gravatar.com']");
+
+      if (disableState !== "" && isProfileImg) {
+        var source =
+          disableState === "1"
+            ? $("#user__avatar > img").attr("src")
+            : oldDefaultAvatar;
+        $img.attr("src", source);
+      }
+    });
+
+    oldAvatar = $("#user__avatar > img").attr("src");
+  }
+
+  $(document).on("submit", ".main__area form", function (e) {
     e.preventDefault();
 
     if ($("#cpa__change__avatar").length > 0) {
-      var avatar__val = $("[name='avatar__val']").val();
+      var avatarVal = $("[name='avatar__val']").val();
       $.ajax({
         type: "POST",
         url: cpa__save__settings.ajax_url,
         data: {
           action: "cpa__settings__change__avatar",
-          avatar__val: avatar__val,
+          avatar__val: avatarVal,
+          security: cpa__save__settings.nonce,
         },
         success: function () {
-          var cpa__get__newavatar = $("#user__avatar > img").attr("src");
-          getImgAfterUpdate(cpa__get__newavatar, avatar__disabled);
-          if ($("#notf").length < 1) {
-            $(".main__area").after("<div id='notf' class='scs'>Avatar successfully saved!</div>");
-            $("#notf").fadeIn(300).css("transform","translateY(12.5px)").delay(800).fadeOut(600);
-            setTimeout(function() {
-              $("#notf").remove();
-            },1800);
-          }
+          var newAvatar = $("#user__avatar > img").attr("src");
+          updateVisibleAvatars(newAvatar, avatarDisabled);
+          showNotice("scs", "Avatar successfully saved!");
         },
         error: function () {
-          if ($("#notf").length < 1) {
-            $(".main__area").after("<div id='notf' class='err'>Avatar not updated!</div>");
-            $("#notf").fadeIn(300).css("transform","translateY(12.5px)").delay(800).fadeOut(600);
-            setTimeout(function() {
-              $("#notf").remove();
-            },1800);
-          }
+          showNotice("err", "Avatar not updated!");
         },
       });
-
     }
 
-    //
-
     if ($("#cpa__user__permissions").length > 0) {
-      var avatar__val = $("[name='avatar__val']").val();
-      var disable__gravatar = $("[name='disable__gravatar']").is(":checked") ? "on" : "off";
-      var editor__permission = $("[name='editor__permission']").is(":checked") ? "on" : "off";
-      var author__permission = $("[name='author__permission']").is(":checked") ? "on" : "off";
-      var contributor__permission = $("[name='contributor__permission']").is(":checked") ? "on" : "off";
-      var shopm__permission = $("[name='shopm__permission']").is(":checked") ? "on" : "off";
+      var avatarVal = $("[name='avatar__val']").val();
+      var disableGravatar = $("[name='disable__gravatar']").is(":checked")
+        ? "on"
+        : "off";
+      var editorPermission = $("[name='editor__permission']").is(":checked")
+        ? "on"
+        : "off";
+      var authorPermission = $("[name='author__permission']").is(":checked")
+        ? "on"
+        : "off";
+      var contributorPermission = $("[name='contributor__permission']").is(
+        ":checked"
+      )
+        ? "on"
+        : "off";
+      var shopmPermission = $("[name='shopm__permission']").is(":checked")
+        ? "on"
+        : "off";
+
       $.ajax({
         type: "POST",
         url: cpa__permission__settings.ajax_url,
         data: {
           action: "cpa__settings__change__permission",
-          avatar__val: avatar__val,
-          disable__gravatar: disable__gravatar,
-          editor__permission: editor__permission,
-          author__permission: author__permission,
-          contributor__permission: contributor__permission,
-          shopm__permission: shopm__permission,
+          avatar__val: avatarVal,
+          disable__gravatar: disableGravatar,
+          editor__permission: editorPermission,
+          author__permission: authorPermission,
+          contributor__permission: contributorPermission,
+          shopm__permission: shopmPermission,
+          security: cpa__permission__settings.nonce,
         },
-        success: function (response) {
-          disable__gravatar == "off" ? avatar__disabled = "0" : avatar__disabled = "1";
-          var cpa__get__newavatar = avatar__disabled == "1" ? $("#user__avatar > img").attr("src") : $("#old__avatar").attr("src");
-          getImgAfterUpdate(cpa__get__newavatar, avatar__disabled);
-          if ($("#notf").length < 1) {
-            $(".main__area").after("<div id='notf' class='scs'>Permissions successfully saved!</div>");
-            $("#notf").fadeIn(300).css("transform","translateY(12.5px)").delay(800).fadeOut(600);
-            setTimeout(function() {
-              $("#notf").remove();
-            },1800);
-          }
+        success: function () {
+          avatarDisabled = disableGravatar === "off" ? "0" : "1";
+          var newAvatar =
+            avatarDisabled === "1"
+              ? $("#user__avatar > img").attr("src")
+              : $("#old__avatar").attr("src");
+
+          updateVisibleAvatars(newAvatar, avatarDisabled);
+          showNotice("scs", "Permissions successfully saved!");
         },
         error: function () {
-          if ($("#notf").length < 1) {
-            $(".main__area").after("<div id='notf' class='err'>Permissions not updated!</div>");
-            $("#notf").fadeIn(300).css("transform","translateY(12.5px)").delay(800).fadeOut(600);
-            setTimeout(function() {
-              $("#notf").remove();
-            },1800);
-          }
+          showNotice("err", "Permissions not updated!");
         },
       });
-
     }
-
-    //
-
   });
 });

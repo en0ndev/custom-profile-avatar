@@ -2,7 +2,7 @@
 
 /**
  ** admin_menu_join.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */

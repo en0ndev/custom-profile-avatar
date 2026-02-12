@@ -2,7 +2,7 @@
 
 /**
  ** admin_footer.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -26,14 +26,13 @@ defined('ABSPATH') || exit; // Exit if accessed directly
 
 function cpa__admin__footer($text)
 {
+    if (!isset($_GET['page'])) {
+        return $text;
+    }
 
-    $get_url = $_SERVER['QUERY_STRING'];
-
-    $keys = 'custom_profile_avatar';
-
-    if (strpos($get_url, $keys) == true) {
-
-        $text = '<span id="author__by"><a>' . esc_html__('Developed by', 'custom-profile-avatar') . '</a><a class="bold" href="https://github.com/en0ndev" target="_blank">en0ndev</a></span>';
+    $page = sanitize_key(wp_unslash($_GET['page']));
+    if (strpos($page, 'custom_profile_avatar') === 0) {
+        $text = '<span id="author__by"><a>' . esc_html__('Developed by', 'custom-profile-avatar') . '</a><a class="bold" href="https://en0n.dev/" target="_blank" rel="noopener noreferrer">en0ndev</a></span>';
     }
 
     return $text;

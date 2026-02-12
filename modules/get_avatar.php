@@ -2,7 +2,7 @@
 
 /**
  ** get_avatar.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -52,38 +52,73 @@ function cpa__get__old($id, $getType)
 
 function cpa__change__avatar()
 {
-    if (isset($_POST['avatar__val'])) {
-        global $current_user;
-        if (!get_user_meta($current_user->id, 'custom_profile_avatar')) {
-            add_user_meta($current_user->id, 'custom_profile_avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
-        } else {
-            update_user_meta($current_user->id, 'custom_profile_avatar', filter_input(INPUT_POST, 'avatar__val', FILTER_SANITIZE_URL));
-        }
-        wp_send_json_success(['state' => 1]);
-        return;
+    if (!check_ajax_referer('cpa_change_avatar_nonce', 'security', false)) {
+        wp_send_json_error(array('state' => 0, 'message' => 'invalid_nonce'), 403);
     }
-    wp_send_json_error(['state' => 0]);
+
+    if (!is_user_logged_in() || !cpa__user__can__manage__avatar()) {
+        wp_send_json_error(array('state' => 0, 'message' => 'unauthorized'), 403);
+    }
+
+    $avatar_val = isset($_POST['avatar__val']) ? esc_url_raw(wp_unslash($_POST['avatar__val'])) : '';
+    update_user_meta(get_current_user_id(), 'custom_profile_avatar', $avatar_val);
+    wp_send_json_success(array('state' => 1));
 }
 
 function cpa__get__avatar__new($getType)
 {
     global $current_user;
-    if ((empty(get_user_meta($current_user->id, 'custom_profile_avatar')[0]) || !get_user_meta($current_user->id, 'custom_profile_avatar')[0]) && $getType == "custom__avatar") {
-        $out = get_avatar($current_user->id, 110);
-    } elseif ($getType == "default__avatar") {
-        $out = '<img class="avatar" src="' . (strlen(get_option('custom_profile_avatar__options__default__avatar')) > 0 ? get_option('custom_profile_avatar__options__default__avatar') . '"/><div class="remove"></div>' : plugins_url() . '/custom-profile-avatar/assets/img/default-non-user-avatar.jpg"/>');
+    $custom_avatar = get_user_meta($current_user->ID, 'custom_profile_avatar', true);
+    $default_avatar = get_option('custom_profile_avatar__options__default__avatar');
+    $fallback_avatar = plugins_url() . '/custom-profile-avatar/assets/img/default-non-user-avatar.jpg';
+
+    if ($getType === 'default__avatar') {
+        $default_src = !empty($default_avatar) ? $default_avatar : $fallback_avatar;
+        $out = '<img class="avatar" src="' . esc_url($default_src) . '" />';
+        if (!empty($default_avatar)) {
+            $out .= '<div class="remove"></div>';
+        }
+    } elseif (!empty($custom_avatar)) {
+        $out = '<img class="avatar" src="' . esc_url($custom_avatar) . '" /><div class="remove"></div>';
     } else {
-        $out = '<img class="avatar" src="' . get_user_meta($current_user->id, 'custom_profile_avatar')[0] . '" /><div class="remove"></div>';
+        // Ensure avatar preview is always visible even when WordPress avatars are disabled.
+        $rendered_avatar = get_avatar($current_user->ID, 110, '', '', array('force_display' => true));
+        if (empty($rendered_avatar)) {
+            $rendered_avatar = '<img class="avatar" src="' . esc_url(cpa__get__old($current_user->ID, 'custom__avatar')) . '" />';
+        }
+        $out = $rendered_avatar;
     }
-    $out .= '<div id="pull" class="hidden"><img id="old__avatar" src="' .  cpa__get__old($current_user->id, $getType) . '" /></div>';
+
+    $out .= '<div id="pull" class="hidden"><img id="old__avatar" src="' . esc_url(cpa__get__old($current_user->ID, $getType)) . '" /></div>';
     return $out;
+}
+
+function cpa__user__can__manage__avatar($user_id = 0)
+{
+    $user = get_userdata($user_id ?: get_current_user_id());
+    if (!$user) {
+        return false;
+    }
+
+    if (in_array('administrator', (array) $user->roles, true)) {
+        return true;
+    }
+
+    $permissions = (array) get_option('custom_profile_avatar__options__permissions');
+    foreach ((array) $user->roles as $role) {
+        if ((isset($permissions[$role]) && $permissions[$role] === 'on')) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function cpa__get__value($getType)
 {
     global $current_user;
-    if (isset(get_user_meta($current_user->id, 'custom_profile_avatar')[0]) && get_user_meta($current_user->id, 'custom_profile_avatar')[0] && $getType == "custom__avatar")
-        return get_user_meta($current_user->id, 'custom_profile_avatar')[0];
+    if (isset(get_user_meta($current_user->ID, 'custom_profile_avatar')[0]) && get_user_meta($current_user->ID, 'custom_profile_avatar')[0] && $getType == "custom__avatar")
+        return get_user_meta($current_user->ID, 'custom_profile_avatar')[0];
     elseif (!empty(get_option('custom_profile_avatar__options__default__avatar')) && $getType == "default__avatar") {
         $get__default__avatar = get_option('custom_profile_avatar__options__default__avatar');
         return $get__default__avatar;
@@ -180,24 +215,24 @@ if (!function_exists('get_avatar')) {
         $getCommentArr = array();
 
         if (is_admin() && isset($_GET["p"])) {
-            $getCommentArr["post_id"] = $_GET["p"];
+            $getCommentArr["post_id"] = absint(wp_unslash($_GET["p"]));
         }
 
         if (is_single() || is_page() || is_singular()) {
             $get__comments = get_comments(array('post_id' => $post->ID, "status" => "approve"));
             usort($get__comments, 'compare__comment__id');
         } else if (is_admin() && isset($_GET['user_id'])) {
-            $get__comments = get_comments($getCommentArr = array('user_id' => $_GET['user_id']));
-        } else if (is_admin() && isset($_GET['comment_status']) ? $_GET['comment_status'] == "moderated" : false) {
+            $get__comments = get_comments($getCommentArr = array('user_id' => absint(wp_unslash($_GET['user_id']))));
+        } else if (is_admin() && (isset($_GET['comment_status']) ? sanitize_key(wp_unslash($_GET['comment_status'])) == "moderated" : false)) {
             $getCommentArr["status"] = "hold";
             $get__comments = get_comments($getCommentArr);
-        } else if (is_admin() && isset($_GET['comment_status']) ? $_GET['comment_status'] == "trash" : false) {
+        } else if (is_admin() && (isset($_GET['comment_status']) ? sanitize_key(wp_unslash($_GET['comment_status'])) == "trash" : false)) {
             $getCommentArr["status"] = "trash";
             $get__comments = get_comments($getCommentArr);
-        } else if (is_admin() && isset($_GET['comment_status']) ? $_GET['comment_status'] == "spam" : false) {
+        } else if (is_admin() && (isset($_GET['comment_status']) ? sanitize_key(wp_unslash($_GET['comment_status'])) == "spam" : false)) {
             $getCommentArr["status"] = "spam";
             $get__comments = get_comments($getCommentArr);
-        } else if (is_admin() && isset($_GET['comment_status']) ? $_GET['comment_status'] == "approved" : false) {
+        } else if (is_admin() && (isset($_GET['comment_status']) ? sanitize_key(wp_unslash($_GET['comment_status'])) == "approved" : false)) {
             $getCommentArr["status"] = "approve";
             $get__comments = get_comments($getCommentArr);
         } else {
@@ -270,7 +305,8 @@ if (!function_exists('get_avatar')) {
             $indx__getting__comments++;
         }
 
-        if (preg_match("/(comment-page-)([0-9])/i", $_SERVER["REQUEST_URI"], $getUrlEl) && get_option('page_comments') == 1 && $get__commenter__indx == 0 && get_option('default_comments_page') === "oldest") {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+        if (preg_match("/(comment-page-)([0-9])/i", $request_uri, $getUrlEl) && get_option('page_comments') == 1 && $get__commenter__indx == 0 && get_option('default_comments_page') === "oldest") {
             $get__commenter__indx += (array_search(get_comment_ID(), $comments__id__array));
         } else if (get_option('default_comments_page') === "newest") {
             $get__commenter__indx = 0;
@@ -301,12 +337,12 @@ if (!function_exists('get_avatar')) {
                 $per_page = 20;
             }
         }
-        $comment_status = isset($_REQUEST['comment_status']) ? $_REQUEST['comment_status'] : 'all';
+        $comment_status = isset($_REQUEST['comment_status']) ? sanitize_key(wp_unslash($_REQUEST['comment_status'])) : 'all';
         $per_page = apply_filters('comments_per_page', $per_page, $comment_status);
 
 
-        if (is_admin() && isset($_GET["paged"]) && ($_GET["paged"] > 1) && get_current_screen()->id === "edit-comments" && ($_GET["paged"] - 1) * $per_page > $get__commenter__indx) {
-            $chng__pos = $_GET["paged"];
+        if (is_admin() && isset($_GET["paged"]) && (absint(wp_unslash($_GET["paged"])) > 1) && get_current_screen()->id === "edit-comments" && (absint(wp_unslash($_GET["paged"])) - 1) * $per_page > $get__commenter__indx) {
+            $chng__pos = absint(wp_unslash($_GET["paged"]));
             $get__commenter__indx = 0;
             while ($chng__pos > 1) {
                 $get__commenter__indx += (get_user_meta(get_current_user_id(), 'custom_profile_avatar')[0]) ? $per_page : ($per_page);
@@ -439,7 +475,7 @@ if (!function_exists('get_avatar')) {
         $avatar = sprintf(
             "<img alt='%s' src='%s' class='%s' height='%d' width='%d' %s/>",
             esc_attr($args['alt']),
-            $custom__avatar,
+            esc_url($custom__avatar),
             esc_attr(implode(' ', $class)),
             (int) $args['height'],
             (int) $args['width'],

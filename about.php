@@ -2,7 +2,7 @@
 
 /**
  ** about.php
- ** @version 1.3.1
+ ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -24,10 +24,10 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 defined('ABSPATH') || exit; // Exit if accessed directly 
 
-$template = "<div class='about'><img src='" . plugin_dir_url(__FILE__) . "/assets/img/icon-128x128.png' alt='Custom Profile Avatar' /><p class='big'>Custom Profile Avatar</p>";
-$template .= "<p>" . esc_html__('Version', 'custom-profile-avatar') . ": 1.3.1</p>";
-$template .= "<p>" . esc_html__('Developer', 'custom-profile-avatar') .  ": <a class='about__author link' href='https://github.com/en0ndev' target='_blank'>en0ndev</a></p>";
-$template .= "<a class='link' target='_blank' href='https://www.youtube.com/channel/UC3CSOAThanO-LvYKFwJ24RQ'>" . esc_html__('My YouTube Channel', 'custom-profile-avatar') . "</a></div>";
+$template = "<div class='about'><img src='" . esc_url(plugin_dir_url(__FILE__) . "/assets/img/icon-128x128.png") . "' alt='Custom Profile Avatar' /><p class='big'>Custom Profile Avatar</p>";
+$template .= "<p>" . esc_html__('Version', 'custom-profile-avatar') . ": 1.4</p>";
+$template .= "<p>" . esc_html__('Developer', 'custom-profile-avatar') .  ": <a class='about__author link' href='https://en0n.dev/' target='_blank' rel='noopener noreferrer'>en0ndev</a></p>";
+$template .= "<a class='link' target='_blank' rel='noopener noreferrer' href='https://www.youtube.com/@en0ndev'>" . esc_html__('My YouTube Channel', 'custom-profile-avatar') . "</a></div>";
 
 $page = new cpa__page__template;
 

@@ -1,6 +1,6 @@
 /**
 ** File: modules.js
-** Version: 1.3.1
+** Version: 1.4
 ** Since: 1.0
 ** Author: en0ndev
 This file is part of Custom Profile Avatar.
@@ -20,15 +20,16 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 jQuery(document).ready(function ($) {
-  var mediaUploader;
-  $("#change").click(function (e) {
+  var mediaUploader = null;
+
+  $(document).on("click", "#change", function (e) {
     e.preventDefault();
-    // If the uploader object has already been created, reopen the dialog
+
     if (mediaUploader) {
       mediaUploader.open();
       return;
     }
-    // Extend the wp.media object
+
     mediaUploader = wp.media.frames.file_frame = wp.media({
       title: "Choose Your Custom Profile Avatar",
       button: {
@@ -39,29 +40,36 @@ jQuery(document).ready(function ($) {
         type: ["image"],
       },
     });
-    // When a file is selected, grab the URL and set it as the text field's value
+
     mediaUploader.on("select", function () {
-      attachment = mediaUploader.state().get("selection").first().toJSON();
-      $(".user__avatar > .avatar").attr("src", attachment.url);
-      $('input[name="avatar__val"]').attr("value", attachment.url);
-      if (!$(".user__avatar").children().hasClass("remove")) {
+      const attachment = mediaUploader.state().get("selection").first().toJSON();
+      const $avatar = $(".user__avatar > .avatar");
+      const $avatarInput = $('input[name="avatar__val"]');
+
+      $avatar.attr("src", attachment.url);
+      $avatarInput.val(attachment.url);
+
+      if ($(".user__avatar > .remove").length < 1) {
         $(".user__avatar > .avatar").after('<div class="remove"></div>');
       }
     });
-    // Open the uploader dialog
+
     mediaUploader.open();
   });
+
   $(document).on("click", ".remove", function () {
     var pull = $("#pull > img").attr("src");
     $(".user__avatar .avatar").attr("src", pull);
-    $('input[name="avatar__val"]').removeAttr("value");
+    $('input[name="avatar__val"]').val("");
     $(this).remove();
   });
+
   $(document).on("click", "[name='disable__gravatar']", function () {
     if ($(this).is(":checked")) {
-      $(".collapse__disable__avatar").fadeIn(500);
-    } else {
-      $(".collapse__disable__avatar").fadeOut(500);
+      $(".collapse__disable__avatar").stop(true, true).fadeIn(250);
+      return;
     }
+
+    $(".collapse__disable__avatar").stop(true, true).fadeOut(250);
   });
 });
