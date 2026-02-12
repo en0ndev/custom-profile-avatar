@@ -31,7 +31,7 @@ function cpa__wp__menu__svg__icon()
         return $icon;
     }
 
-    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="6.5" r="3.2" fill="currentColor"/><path d="M3.6 17c.9-3.3 3.6-5.3 6.4-5.3s5.5 2 6.4 5.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#ffffff" d="M10 2.8a3.4 3.4 0 1 1 0 6.8a3.4 3.4 0 0 1 0-6.8Zm0 8.8c3.6 0 6.4 2.2 7 5.6H3c.6-3.4 3.4-5.6 7-5.6Z"/></svg>';
     $icon = 'data:image/svg+xml;base64,' . base64_encode($svg);
 
     return $icon;
