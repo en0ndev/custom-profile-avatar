@@ -1,6 +1,6 @@
 === Custom Profile Avatar ===
 Contributors: en0ndev
-Tags: custom avatar, custom profile avatar, change avatar, wordpress avatar, avatar, gravatar, disable gravatar, default avatar, wp avatar, choose avatar
+Tags: custom avatar, change avatar, wordpress avatar, disable gravatar, wp avatar
 Requires at least: 5.0
 Tested up to: 6.9.1
 Stable tag: 1.4
@@ -8,9 +8,51 @@ Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
+Easily upload and use custom profile avatars in WordPress. Disable Gravatar and keep everything local.
+
 == Description ==
 
-You can easily change your WordPress profile avatar with Custom Profile Avatar. Also you can disable Gravatar with this plugin.
+Custom Profile Avatar allows you to upload and manage WordPress user avatars directly from your dashboard — no external services required.
+
+By default, WordPress uses Gravatar for profile images. This plugin gives you full control by letting you:
+
+- Upload a custom avatar from your profile page
+- Replace the default WordPress avatar instantly
+- Disable Gravatar completely
+- Keep avatar data local to your site
+
+No more forcing users to create Gravatar accounts. No unnecessary external requests. Just simple, clean avatar management.
+
+== Features ==
+
+* Upload custom avatars for users
+* Override default WordPress avatars
+* Option to disable Gravatar
+* Lightweight and fast
+* Easy-to-use interface inside the profile page
+* Privacy-friendly (no third-party calls)
+
+== Installation ==
+
+1. Upload the plugin files to the `/wp-content/plugins/custom-profile-avatar` directory, or install the plugin through the WordPress plugins screen.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Go to **Users → Profile**.
+4. Upload your custom avatar.
+5. Optionally disable Gravatar in the plugin settings.
+
+== Frequently Asked Questions ==
+
+= Does this plugin completely disable Gravatar? =
+
+Yes. You can disable Gravatar entirely so WordPress does not load external avatar images.
+
+= Can each user upload their own avatar? =
+
+Yes. Each user can upload their own profile avatar from their profile page.
+
+= Does this work with existing themes? =
+
+Yes. The plugin integrates with WordPress’ native avatar system, so it works with most themes automatically.
 
 == Screenshots ==
 
@@ -20,7 +62,7 @@ You can easily change your WordPress profile avatar with Custom Profile Avatar. 
 
 == Changelog ==
 
-= 1.4
+= 1.4 =
 * Optimization updates
 * Design updates
 
