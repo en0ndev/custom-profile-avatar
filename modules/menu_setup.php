@@ -40,7 +40,7 @@ function cpa__add__menu__permission()
 
     if (cpa__user__can__manage__avatar($usr_id)) {
 
-        $img = plugin_dir_url(__FILE__) . '../assets/img/icon.png';
+        $img = plugin_dir_url(__FILE__) . '../assets/img/icon.svg';
         add_menu_page(
             __('Avatar Settings', 'custom_profile_avatar'),
             __('Custom Profile Avatar', 'custom_profile_avatar'),
