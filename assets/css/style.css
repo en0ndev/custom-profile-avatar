@@ -157,7 +157,7 @@ body {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--cpa-brand-strong);
-  background: rgba(13, 122, 102, 0.08);
+  background: rgba(0, 96, 193, 0.08);
   border: 1px solid rgba(13, 122, 102, 0.16);
   border-radius: 999px;
   padding: 10px 16px;
@@ -181,7 +181,7 @@ body {
   height: 112px;
   object-fit: cover;
   border: 4px solid #fff;
-  box-shadow: 0 10px 25px rgba(21, 122, 58, 0.2);
+  box-shadow: 0 10px 25px rgba(20, 52, 71, 0.2);
   background: #fff;
 }
 
@@ -211,7 +211,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   padding: 0 18px;
-  box-shadow: 0 10px 20px rgba(13, 122, 102, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 96, 193, 0.3);
 }
 
 .main__area input[type="button"]:hover,
