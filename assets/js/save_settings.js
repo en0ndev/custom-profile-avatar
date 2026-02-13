@@ -1,6 +1,5 @@
 /**
 ** File: save_settings.js
-** Version: 1.4
 ** Since: 1.3
 ** Author: en0ndev
 This file is part of Custom Profile Avatar.

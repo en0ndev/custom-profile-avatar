@@ -4,10 +4,12 @@
 Plugin Name: Custom Profile Avatar
 Plugin URI: https://wordpress.org/plugins/custom-profile-avatar
 Description: Change profile avatar to your custom avatar. Also you can disable Gravatar.
-Version: 1.4
+Version: 1.4.1
 Author: en0ndev
 Author URI: https://en0n.dev/
 Text Domain: custom-profile-avatar
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 This file is part of Custom Profile Avatar.
 
@@ -24,6 +26,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+defined('ABSPATH') || exit; // Exit if accessed directly
 
 require_once __DIR__ . '/modules/menu_setup.php';
 require_once __DIR__ . '/modules/admin_menu_join.php';

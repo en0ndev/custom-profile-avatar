@@ -2,7 +2,6 @@
 
 /**
  ** profile_avatar.php
- ** @version 1.4
  ** @since 1.4
  ** @author en0ndev
  */
@@ -51,7 +50,7 @@ function cpa__enqueue__profile__avatar__assets($hook_suffix)
         'cpa-profile-avatar-script',
         plugin_dir_url(__DIR__) . 'assets/js/profile_avatar.js',
         array('jquery'),
-        '1.4',
+        '1.4.1',
         true
     );
 }

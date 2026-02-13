@@ -2,10 +2,10 @@
 Contributors: en0ndev
 Tags: custom avatar, change avatar, wordpress avatar, disable gravatar, wp avatar
 Requires at least: 5.0
-Tested up to: 6.9.1
-Stable tag: 1.4
+Tested up to: 6.9
+Stable tag: 1.4.1
 Requires PHP: 7.0
-License: GPLv2 or later
+License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 Easily upload and use custom profile avatars in WordPress. Disable Gravatar and keep everything local.

@@ -2,7 +2,6 @@
 
 /**
  ** template.php
- ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */

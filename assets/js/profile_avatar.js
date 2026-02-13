@@ -1,6 +1,5 @@
 /**
 ** File: profile_avatar.js
-** Version: 1.4
 ** Since: 1.4
 ** Author: en0ndev
 */

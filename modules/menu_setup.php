@@ -2,7 +2,6 @@
 
 /**
  ** menu_setup.php
- ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -55,8 +54,8 @@ function cpa__add__menu__permission()
 
         $img = cpa__wp__menu__svg__icon();
         add_menu_page(
-            __('Avatar Settings', 'custom_profile_avatar'),
-            __('Custom Profile Avatar', 'custom_profile_avatar'),
+            __('Avatar Settings', 'custom-profile-avatar'),
+            __('Custom Profile Avatar', 'custom-profile-avatar'),
             'edit_posts',
             'custom_profile_avatar',
             'cpa__main__settings',

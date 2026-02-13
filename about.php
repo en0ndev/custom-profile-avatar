@@ -2,7 +2,6 @@
 
 /**
  ** about.php
- ** @version 1.4
  ** @since 1.0
  ** @author en0ndev
  */
@@ -25,7 +24,7 @@ along with Custom Profile Avatar.  If not, see <https://www.gnu.org/licenses/>.
 defined('ABSPATH') || exit; // Exit if accessed directly 
 
 $template = "<div class='about'><img src='" . esc_url(plugin_dir_url(__FILE__) . "/assets/img/icon.png") . "' alt='Custom Profile Avatar' /><p class='big'>Custom Profile Avatar</p>";
-$template .= "<p>" . esc_html__('Version', 'custom-profile-avatar') . ": 1.4</p>";
+$template .= "<p>" . esc_html__('Version', 'custom-profile-avatar') . ": 1.4.1</p>";
 $template .= "<p>" . esc_html__('Developer', 'custom-profile-avatar') .  ": <a class='about__author link' href='https://en0n.dev/' target='_blank' rel='noopener noreferrer'>en0ndev</a></p>";
 $template .= "<a class='link' target='_blank' rel='noopener noreferrer' href='https://www.youtube.com/@en0ndev'>" . esc_html__('My YouTube Channel', 'custom-profile-avatar') . "</a></div>";
 
